@@ -41,3 +41,4 @@ public class SmokeTest {
         return baseUrl + path;
     }
 }
+
