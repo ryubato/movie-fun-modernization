@@ -1,18 +1,11 @@
-package org.superbiz.moviefun.movies;
+package org.superbiz.moviefun.movieapi.movies;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
+import java.util.Objects;
 
-@Entity
-public class Movie implements Serializable {
+public class MovieInfo {
+    public MovieInfo() {
+    }
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String director;
@@ -21,10 +14,7 @@ public class Movie implements Serializable {
     private String genre;
     private int rating;
 
-    public Movie() {
-    }
-
-    public Movie(String title, String director, String genre, int rating, int year) {
+    public MovieInfo(String title, String director, String genre, int rating, int year) {
         this.director = director;
         this.title = title;
         this.year = year;
@@ -32,7 +22,7 @@ public class Movie implements Serializable {
         this.rating = rating;
     }
 
-    public Movie(String director, String title, int year) {
+    public MovieInfo(String director, String title, int year) {
         this.director = director;
         this.title = title;
         this.year = year;
@@ -84,5 +74,23 @@ public class Movie implements Serializable {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MovieInfo movieInfo = (MovieInfo) o;
+        return id == movieInfo.id &&
+                year == movieInfo.year &&
+                rating == movieInfo.rating &&
+                Objects.equals(director, movieInfo.director) &&
+                Objects.equals(title, movieInfo.title) &&
+                Objects.equals(genre, movieInfo.genre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, director, title, year, genre, rating);
     }
 }
